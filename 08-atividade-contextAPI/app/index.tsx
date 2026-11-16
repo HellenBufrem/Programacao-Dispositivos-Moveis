@@ -18,7 +18,6 @@ export default function SettingsScreen() {
 
   return (
     <View style={[styles.container, { backgroundColor: activeColors.background }]}>
-      {/* Cabeçalho com o Chaveador (Switch) */}
       <View style={styles.header}>
         <Text style={[styles.title, { color: activeColors.text }]}>
           Configurações
@@ -34,7 +33,6 @@ export default function SettingsScreen() {
         </View>
       </View>
 
-      {/* Os componentes filhos não recebem nenhuma prop de cor */}
       <FormInput
         label="Nome de Utilizador"
         placeholder="Digite o seu utilizador"
