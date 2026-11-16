@@ -1,10 +1,8 @@
 import React, { useMemo } from 'react';
 import { StyleSheet, Text, View, SectionList, StatusBar } from 'react-native';
 
-// 1. Importação de Dados
 import motorcyclesData from '../mocks/motorcycles.json';
 
-// Tipagem exata do JSON fornecido pelo professor
 interface Motorcycle {
   id: string;
   brand: string;
@@ -13,7 +11,6 @@ interface Motorcycle {
   category: string;
 }
 
-// 2. Função (Helper) de Transformação de Dados
 function groupMotorcyclesByCategory(data: Motorcycle[]) {
   const groups: Record<string, Motorcycle[]> = {};
 
@@ -24,7 +21,6 @@ function groupMotorcyclesByCategory(data: Motorcycle[]) {
     groups[moto.category].push(moto);
   });
 
-  // Transforma no formato { title, data } exigido pela SectionList
   return Object.keys(groups).map((category) => ({
     title: category,
     data: groups[category],
@@ -32,7 +28,6 @@ function groupMotorcyclesByCategory(data: Motorcycle[]) {
 }
 
 export default function CatalogoMotosScreen() {
-  // Processa os 1000 itens apenas uma vez com useMemo
   const sectionsData = useMemo(() => groupMotorcyclesByCategory(motorcyclesData), []);
 
   return (
@@ -46,13 +41,11 @@ export default function CatalogoMotosScreen() {
         </Text>
       </View>
 
-      {/* 3. Componente de Lista Otimizado para Seções */}
       <SectionList
         sections={sectionsData}
         keyExtractor={(item) => item.id}
         stickySectionHeadersEnabled={false}
         
-        // 4. Cabeçalho da Seção com contador de itens
         renderSectionHeader={({ section: { title, data } }) => (
           <View style={styles.sectionHeader}>
             <Text style={styles.sectionHeaderText}>{title}</Text>
@@ -60,9 +53,7 @@ export default function CatalogoMotosScreen() {
           </View>
         )}
         
-        // 4. Item da Lista (Modelo, Marca e Ano)
         renderItem={({ item }) => {
-          // Remove o nome da marca repetido de dentro do model (ex: "Yamaha 611O" -> "Modelo 611O")
           const codigoModelo = item.model.replace(item.brand, '').trim();
 
           return (
